@@ -8,7 +8,7 @@ const ImageCard = ({item, index, load=true, handleOpenRemoveItem})=>{
         <Grow in={load}>
           <Card className="rovercard" >
             <CardHeader
-              title={`${item?.camera?.full_name} (${item?.camera.name})`}
+              title={`${item?.camera?.full_name}`}
               subheader={item?.earth_date}
             />
             <CardMedia
@@ -23,6 +23,10 @@ const ImageCard = ({item, index, load=true, handleOpenRemoveItem})=>{
                 <Typography>{item?.rover?.name}</Typography> 
               </Stack>
               <Stack direction="row" spacing={1}>
+                <Typography>Camera name:</Typography> 
+                <Typography>{item?.camera?.name}</Typography> 
+              </Stack>
+              <Stack direction="row" spacing={1}>
                 <Typography>Launch date:</Typography> 
                 <Typography>{item?.rover?.launch_date}</Typography>
               </Stack>
@@ -31,8 +35,8 @@ const ImageCard = ({item, index, load=true, handleOpenRemoveItem})=>{
                   <Typography>{item?.rover?.landing_date}</Typography>
               </Stack>     
               <Stack direction="row" sx={{alignItems:"center", justifyContent:"space-between"}}>
-                  <IconButton onClick={()=>handleOpenRemoveItem(item)} >
-                    <TrashIcon></TrashIcon>
+                  <IconButton onClick={()=>handleOpenRemoveItem(item)}>
+                    <TrashIcon sx={{ color: "darkred" }} ></TrashIcon>
                   </IconButton>
                   <Typography>{index + 1}</Typography>
               </Stack>    

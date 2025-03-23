@@ -14,7 +14,7 @@ const RemoveItemDialog = ({open, content, handleClose, handleRemove}) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure of removing photo: {content}
+            Are you sure of removing photo: {content}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
