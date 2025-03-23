@@ -1,71 +1,61 @@
 import { Fragment, useEffect, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
-import { Container, Typography, Grid2 as Grid, Card, CardHeader, CardMedia, CardContent, Stack} from '@mui/material';
+import { Container, Typography, Grid2 as Grid, Button, Box} from '@mui/material';
 import { getData } from './services/api';
+import ImageCard from './components/ImageCard';
+import AddIcon  from '@mui/icons-material/Add'
 
 function App() {
 
-const [ nasaImages, setNasaImages ] = useState();
+const IMAGES_PER_LOAD = 12;
+const START_INDEX = 0;
+const API_KEY  = import.meta.env.VITE_NASA_API_KEY || "DEMO_KEY"
+const SPACE_COLOR = "linear-gradient(to bottom, #000033, #191970, #483D8B, #6A5ACD, #87CEEB, #ADD8E6)"
+const [ nasaImages, setNasaImages ] = useState([]);
+const [ endIndex, setEndIndex ] = useState(IMAGES_PER_LOAD);
+
 
     useEffect(()=>{
 
-       const fetchImages = async ()=>{
-        const data = await getData();
+       const fetchImages = async (url)=>{
+        const data = await getData(url);
         const {photos} = data;
-        console.log(photos);
         setNasaImages(photos);
        }
 
-      fetchImages()
-    },[])
+      fetchImages(`/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${API_KEY}`)
+    },[API_KEY]) 
 
-  const ImageCard = ({item})=>{
-
-    return(
-      <Grid size={{xs: 12, sm:6, md:4, lg:3}}>
-        <Card>
-          <CardHeader
-            title={`${item?.camera?.full_name} (${item?.camera.name})`}
-            subheader={item?.earth_date}
-          />
-          <CardMedia
-            component="img"
-            image={item?.img_src}
-            alt={`${item?.full_name} (${item?.camera.name})`}
-          />
-          <CardContent>         
-            <Stack direction="row">
-              <Typography>Rover name:</Typography> 
-              <Typography>{item?.rover?.name}</Typography> 
-            </Stack>
-            <Stack direction="row">
-              <Typography>Launch date:</Typography> 
-              <Typography>{item?.rover?.launch_date}</Typography>
-            </Stack>
-            <Stack direction="row">
-                <Typography>Landing date:</Typography>
-                <Typography>{item?.rover?.landing_date}</Typography>
-            </Stack>         
-          </CardContent>    
-        </Card>
-      </Grid>
-    )
+  const handleMoreImages =()=>{
+    setEndIndex((prevState)=>( prevState  + IMAGES_PER_LOAD ))
   }
+
+  const imagesToShow = nasaImages?.slice(START_INDEX, endIndex);
 
   return (
     <Fragment>
       <CssBaseline/>
-      <Container maxWidth={false}>
-        <Typography variant='h1'>Nasa Viewer</Typography>
+      <Container maxWidth={false} sx={{backgroundImage: SPACE_COLOR, height:"100%"}} >
+        <Typography variant='h1' color='white'>Nasa Viewer</Typography>
 
-        <Grid container spacing={2}>
-        {nasaImages?.map((item)=>{
-          return <ImageCard key={item.id} item={item}/>
+        <Grid container spacing={2} paddingTop={5}>
+        {imagesToShow?.map((item, idx)=>{
+          return <ImageCard key={item.id} item={item} index={idx}/>
         })}
+        </Grid>
+        <Grid  container direction="row" sx={{alignItems:"center", justifyContent:"center", padding:"25px"}} >
+          <Button 
+            variant='contained' 
+            size='large' 
+            startIcon={<AddIcon/>} 
+            color={SPACE_COLOR}
+            onClick={handleMoreImages}>
+              More Images
+          </Button>
         </Grid>
       </Container>
     </Fragment>
   )
 }
 
-export default App
+export default App;

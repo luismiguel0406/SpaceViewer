@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const baseURL = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY';
+const baseURL = 'https://api.nasa.gov';
 
 const api = axios.create({
   baseURL: baseURL,
 });
 
-export async function getData() {
+export async function getData(url) {
   try {
-    const response = await api.get();
+    const response = await api.get(url);
     return response.data;
   } catch (error) {
     console.error('An error has occurred', error);

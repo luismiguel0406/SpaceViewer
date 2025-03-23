@@ -1,7 +1,20 @@
-
+html, body { height: 100%; }
 body {
   margin: 0;
 }
+
+#root {
+  height: 100%;
+}
+
+.rovercard{
+  transition: all 300ms;
+ }
+
+ .rovercard:hover{
+     border-color: aqua;
+     cursor: pointer;
+ }
 
 
 
