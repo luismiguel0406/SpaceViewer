@@ -35,7 +35,7 @@ const [ endIndex, setEndIndex ] = useState(IMAGES_PER_LOAD);
   return (
     <Fragment>
       <CssBaseline/>
-      <Container maxWidth={false} sx={{backgroundImage: SPACE_COLOR, height:"100%"}} >
+      <Container maxWidth={false} sx={{backgroundImage: SPACE_COLOR, minHeight:"100%"}} >
         <Typography variant='h1' color='white'>Nasa Viewer</Typography>
 
         <Grid container spacing={2} paddingTop={5}>
@@ -48,7 +48,7 @@ const [ endIndex, setEndIndex ] = useState(IMAGES_PER_LOAD);
             variant='contained' 
             size='large' 
             startIcon={<AddIcon/>} 
-            color={SPACE_COLOR}
+            sx={{bgcolor:'#000033', color:'white'}}
             onClick={handleMoreImages}>
               More Images
           </Button>
