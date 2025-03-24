@@ -1,12 +1,12 @@
 import { Card, CardHeader, CardMedia, CardContent, Stack, Typography, Grid2 as Grid, Grow, IconButton} from "@mui/material";
 import TrashIcon from "@mui/icons-material/Delete"
 
-const ImageCard = ({item, index, load=true, handleOpenRemoveItem})=>{
+const ImageCard = ({item, index, handleOpenRemoveItem})=>{
 
     return(
-      <Grid size={{xs: 12, sm:6, md:4, lg:3}} minHeight={200}>
-        <Grow in={load}>
-          <Card className="rovercard" >
+      <Grid size={{xs: 12, sm:6, md:4, lg:3, xl:2}} minHeight={200}>
+        <Grow in>
+          <Card sx={{ height: "100%"}} >
             <CardHeader
               title={`${item?.camera?.full_name}`}
               subheader={item?.earth_date}

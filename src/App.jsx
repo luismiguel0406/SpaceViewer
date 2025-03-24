@@ -5,7 +5,6 @@ import {
   Typography,
   Grid2 as Grid,
   Button,
-  Box,
 } from "@mui/material";
 import { getData } from "./services/api";
 import ImageCard from "./components/ImageCard";
